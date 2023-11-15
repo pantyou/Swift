@@ -1,1 +1,11 @@
+import Foundation
+
+
+//常量: let声明(不能改变)  变量: var声明(可以改变)
+let a = 10
+var b = 10
+
+print(a)
+print(b)
+
 
