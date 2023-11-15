@@ -1,0 +1,34 @@
+import Foundation
+
+//函数是一个独立的代码块
+
+//将参数a和b相加并打印出来  形参
+func add(a: Int, b: Int){
+    let num = a + b
+    print(num)
+}
+//调用函数  实参
+add(a: 1, b: 5)
+add(a: 2, b: 5)
+add(a: 2, b: 7)
+
+//将参数a和b相加并打印出来  形参
+func add(a: Int = 1, b: Int = 1){
+    let num = a + b
+    print(num)
+}
+//调用函数  实参
+add(a: 1, b: 5)
+add(a: 2, b: 5)
+add(b: 7)
+
+//func 函数名 (参数1, 参数2...) -> 返回值类型{}
+func add(a: Int = 1, b: Int = 1) -> Int{
+    let num = a + b
+    print(num)
+    return num
+}
+var num = add(a:3 )
+print(num)
+
+
