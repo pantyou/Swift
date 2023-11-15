@@ -1,0 +1,80 @@
+import Foundation
+
+//条件控制语句 if switch
+print("1")
+var price = 10
+if price > 5 && price < 10 {
+    print("2")
+}
+print("3")
+
+if price > 5 && price < 10 {
+    print("2")
+}else{
+    print("-2")
+}
+print("3")
+
+
+
+if price > 20{
+    print("太贵了")
+}else if price > 10{
+    print("考虑一下)
+}else if price > 5{
+    print("想买")
+}else {
+    print("卖了")
+}
+
+//switch 使用一个变量的多个值情况下，进行条件匹配
+var price = 4
+switch price {
+   case 1:
+      print("价格是1")
+   case 2:
+      print("价格是2")
+   case 3,4,5:
+      print("价格是345")
+   case 6:
+      print("价格是6")
+      print("价格是6")
+      print("价格是6")
+   default:
+      print("价格是其他")
+}
+
+enum PlayerState{
+    case Idle
+    case Run
+    case Attack
+}
+var state = PlayerState.Run
+switch state{
+     case PlayerState.Idle:
+         print("闲置状态")
+     case PlayerState.Run:
+         print("跑步状态")
+     case PlayerState.Attack:
+         print("攻击状态")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
