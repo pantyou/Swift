@@ -1,0 +1,31 @@
+import Founddation
+
+//三目运算符   条件 ?  值1 ： 值2
+var test = 5 > 6 ? 5 ：3
+print(test)
+/*
+if 5 > 6{
+   test = 5
+}else {
+   test = 3
+}
+*/
+
+var a: Int = 5
+//创建一个空的字符串数组
+var persons: [String] = []
+var persons2: [String]()
+//创建一个有默认值的字符串数组
+var persons3 = ["魏垣", "田鹏", "苏念雪", "宇文逸"]
+//向数组添加新元素
+persons.append("张无忌")
+persons.append("李逍遥")
+//数组的访问
+persons3[1] = "桃花"
+print(persons3[1])
+//删除旧元素
+//persons3.removeall()
+persons3.remove(at: 1)
+print(persons3[1])
+//获取数组长度
+print(persons3.count)
