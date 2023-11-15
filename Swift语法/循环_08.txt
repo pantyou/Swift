@@ -1,0 +1,64 @@
+import Foundation
+
+//1.通过布尔值(条件表达式)来控制循环
+var index = 0
+while index < 10{
+    print(index)
+    index += 1 
+}
+print("循环完成")
+
+//指定条件跳出循环
+index = 1
+while index < 10{
+    print(index)
+    if index == 5{
+        break //跳出最近的while循环
+    }
+    index += 1
+}
+print("循环完成")
+
+//结束当前循环，进入下个循环
+index = 1
+while index < 10{
+    if index == 5{
+        index += 1
+        continue //结束当前循环，进入下个循环
+    }
+    print(index)
+    index += 1
+}
+print("循环完成")
+
+//在循环的最后进行判断，至少进行一次循环
+index = 1
+repeat {
+    print(index)
+    index += 1
+}while(index < 20);
+
+//for循环  遍历数组或范围
+var nums = [3,4,5,6]
+for n in nums{
+    print(n)
+}
+
+for i in 0...5{
+    print(i)
+}
+
+//不需要使用临时变量时，用_表示每次遍历输出指定的常量
+for _ in 0...5{
+    print("哈哈")
+}
+
+
+
+
+
+
+
+
+
+
