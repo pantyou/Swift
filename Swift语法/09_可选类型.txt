@@ -1,0 +1,26 @@
+import Foundation
+
+//存储指定类型
+var a: Int = 5
+var str: String = ""
+
+//存储可选值
+var b: Int? = 5
+print(a)
+print(b)
+print(b!) //如果b为nil的空值，强制拆包会报错
+
+var c: Int? = 4
+if b != nil{
+    print(b!)
+}
+
+//当可选类型c为nil时自动跳出判断，不为空时输出print
+if let d = c{
+    print(d)
+}
+
+
+var e: Int! = c //自动拆包
+var f: Int = c! //强制拆包
+
