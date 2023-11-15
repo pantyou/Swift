@@ -1,0 +1,53 @@
+import Foundation
+
+var a: Int = 10
+var b: UInt8 = 5
+
+//类型别名
+typealias MyInt = UInt8
+var c: MyInt = 10
+
+//枚举
+var month: Int = 0
+//创建一个也枚举类型
+enum Month{
+  case January
+  case February
+  case March
+}
+
+//创建一个枚举变量
+var mon: Month1 = Month.January
+
+enum PlayerState{
+  case Idle
+  case run
+  case Attack
+  case Die
+}
+var state1 = PlayerState.Idle
+var state2 = PlayerState.Idle
+var state3 = PlayerState.Idle
+print(state1.rawValue)
+print(state2.rawValue)
+print(state3.rawValue)
+Idle = 10
+print(state1.rawValue)
+print(state2.rawValue)
+print(state3.rawValue)
+
+
+//关联值
+enum Month2{
+  case January(Int)
+  case February(String, String)
+  case March
+}
+var mon2: Month2.January(10)
+var mon3: Month2.February("a", "b")
+print(mon2)
+print(mon3)
+
+
+
+
