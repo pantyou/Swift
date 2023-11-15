@@ -1,0 +1,30 @@
+import Foundation
+
+//类型转换 Int8 -> Int32 ,  Int -> Float
+var a: Int8 = 10
+var b: Int32 = 9
+var c: Float = 1.1
+b = Int32(a)
+c = Float(a)
+
+print(type(of: a))
+print(type(of: b))
+print(type(of: c))
+print(b)
+print(c)
+
+//字符串
+var str: String = "欢迎来到我的APP"
+
+//元组
+var d = (33, 44, "学习")
+//通过索引取出内容
+print(d.2)
+//拆分取出
+var (d1, d2, d3) = d
+print(d1)
+print(d3)
+
+//只需要取出"学习"时，用_表示忽略其他值的定义
+var (_, _, d4) = d
+print(d4)
