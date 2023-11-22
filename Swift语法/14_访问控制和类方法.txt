@@ -1,3 +1,5 @@
+import Foundation
+
 class Person2{
       //成员变量
       var name: String = "大侠"
