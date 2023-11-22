@@ -1,0 +1,40 @@
+class Person2{
+      //变量
+      var name: String = "大侠"
+      //年龄限制：0-150
+      var age: Int = 0
+
+      //属性
+      var Age: Int{
+          //赋值调用方法
+          set(value){
+            if value > 150{
+               self.age = 150
+            }else if value < 0{
+               self.age = 0
+            }else{
+               self.age = value
+            }  
+          }
+          //取值
+          get{
+            return age
+          }
+      }
+
+      //方法
+      funcs eat(){
+      }
+      funcs run(){
+      }
+      funcs sleep(){
+      }
+      funcs play(){
+        print("\(name)在表演")
+      }
+}
+
+
+let cp: Person2 = Person2()
+cp.Age = 20 //传到属性的set方法
+print(cp.Age) //取值调用get方法
