@@ -1,0 +1,45 @@
+import Foundation
+
+
+class Person{
+   var name: String = "蓝忘机" //初始化方法1
+   var age: Int
+   //init(){
+       age = 18 //初始化方法1
+   }
+   //重载一个初始化方法
+   init(myAge: Int){
+       age = myAge
+   }
+   //析构方法
+   deinit {
+       print("\(name) is being deinitialized")
+   }
+}
+
+var pc = Person()
+print(pc.age)
+
+var cp = Person(myAge: 28)
+print(cp.age)
+
+/* pan 被声明为 Person? 类型，意味着 pan 可以持有一个 Person 实例，或者它可以没有任何值（即 nil）
+这使得 Swift 能够在编译时强制检查值的存在，从而避免运行时错误，如空指针解引用错误*/
+var pan: Person? = Person(name: "蓝忘机", age: 30) 
+
+pan = nil // 这里会触发 deinit，输出 "蓝忘机 is being deinitialized"
+
+/*
+在 Swift 中，当 person 变量被设置为 nil 时，deinit 会被调用，这是由 Swift 的内存管理机制决定的，
+特别是引用计数（Reference Counting）的部分。Swift 使用自动引用计数（ARC）来跟踪和管理应用程序的
+内存使用。每当你创建一个类的新实例时，ARC 会分配一块内存来存储该实例的信息，并跟踪该实例有多少属性、
+常量和变量正在引用它。只要这个引用计数大于零，ARC 将保持该实例在内存中。当你将一个类实例赋给一个属
+性、常量或变量时，引用计数会增加。相反，当这些引用不再指向该实例时，引用计数会减少。当引用计数降至
+零时，说明没有任何属性、常量或变量再引用该实例，ARC 会认为这个实例不再被需要，并释放它所占用的内存。
+
+当 Person 实例被创建并赋给 person 变量时，这个实例的引用计数变为 1。当 person 被设置为 nil 时，
+这个引用计数变为 0，因为没有其他属性、常量或变量再引用这个 Person 实例。因此，ARC 会释放这个实例
+以回收内存。在实例被销毁之前，Swift 会自动调用 deinit 析构器，允许你执行任何必要的清理工作。在这
+个例子中，deinit 会输出一条消息，表明这个实例正在被销毁。
+*/
+
