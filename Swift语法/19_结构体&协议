@@ -1,0 +1,114 @@
+import Foundation
+
+//结构体
+strut Person{
+     var name: String = "小虾米"
+     func play(){
+     
+     }
+}
+
+//创建一个结构体
+var pc1 = Person()
+person.play()
+
+//类是浅拷贝，结构体是深拷贝
+var pc2 = pc1
+pc2.name = "秦无双"
+print(pc.1)
+
+&协议
+//创建协议
+在 Swift 中，协议是一种定义一组方法、属性或其他要求的方式，但不提供这些要求的实现。
+类、结构体或枚举可以遵循这个协议，并提供具体的实现。这类似于其他编程语言中的接口
+
+//例1:
+定义协议：
+首先，我们定义一个名为 Printable 的协议，它要求任何遵循该协议的类型都必须实现一个方法 printDetails
+protocol Printable {
+    func printDetails()
+}
+
+实现协议：
+接下来，定义一个结构体 Book 和一个类 Person，它们都遵循 Printable 协议，并实现了 printDetails 方法
+struct Book: Printable {
+    var title: String
+    var author: String
+
+    func printDetails() {
+        print("Book Title: \(title), Author: \(author)")
+    }
+}
+class Person: Printable {
+    var name: String
+    var age: Int
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    func printDetails() {
+        print("Name: \(name), Age: \(age)")
+    }
+}
+使用协议：
+最后，可以创建 Book 和 Person 的实例，并调用它们的 printDetails 方法
+let myBook = Book(title: "Swift Programming", author: "John Doe")
+myBook.printDetails()  // 输出: Book Title: Swift Programming, Author: John Doe
+
+let person = Person(name: "Alice", age: 30)
+person.printDetails()  // 输出: Name: Alice, Age: 30
+
+协议的优势：
+协议的一个主要优势是它们提供了一种方式来定义一组应该由某个类型实现的方法和属性，而不需要关心
+这个类型的具体实现。这促进了 Swift 中的多态和接口编程，允许编写更灵活和可重用的代码
+
+//例2:
+//创建一个USB协议
+protocal USB{
+     func usbFunc()
+}
+//U盘
+class UPan: USB{
+     func usbFunc(){
+         print("我是U盘")
+     }
+}
+//鼠标
+class Mouse: USB{
+     func usbFunc(){
+         print("我是鼠标")
+     }
+}
+//键盘
+class Keyboard: USB{
+     func usbFunc(){
+         print("我是键盘")
+     }
+}
+//电脑
+class Computer: USB{
+     var usb1: USB?
+     var usb2: USB?
+     var usb3: USB?
+     var usb4: USB?
+}
+
+//实例化一台电脑
+var com = Computer()
+//给电脑1号接口连接U盘
+com.usb1 = UPan()
+//给电脑2号接口连接鼠标
+com.usb2 = Mouse()
+//给电脑3号接口连接键盘
+com.usb3 = Keyboard()
+
+com.usb1?.usbFunc()
+com.usb2?.usbFunc()
+com.usb3?.usbFunc()
+
+
+
+
+
+
+
