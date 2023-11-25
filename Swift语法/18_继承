@@ -1,0 +1,138 @@
+import Foundation
+
+//面向对象的三大特征: 封装，继承，多态
+class Person{
+   var name: String = "蓝忘机" //初始化方法1
+   private var age: Int
+   //init(){
+       age = 18 //初始化方法1
+   }
+   //重载一个初始化方法
+   init(myAge: Int){
+       age = myAge
+       print(age)
+   }
+
+   func play(){
+       print("我是\(name), 我\(age)岁")
+   }
+   //析构方法
+   deinit {
+       print("\(name) is being deinitialized")
+   }
+}
+
+/*
+封装的关键点:
+1. 数据隐藏
+封装的一个主要方面是隐藏内部状态和实现细节。这是通过将类的成员（属性和方法）设置为私有（private）或受保护（protected）来实现的，
+这样它们就不能被外部直接访问。只有通过公共（public）方法（如 getter 和 setter）才能访问和修改这些私有成员
+
+2. 公共接口
+封装还涉及到定义一个公共接口，这是与外部世界交互的唯一途径。这个接口由公共方法和属性组成，它们定义了如何与对象交互，而不暴露其内部
+工作原理。在面向对象编程中，公共接口是类的一部分，它们是外部代码可以安全访问和使用的部分。这些接口隐藏了内部实现的细节，提供了与对
+象交互的标准方式
+class Car {
+    private var speed: Int = 0
+
+    // 这是一个公共方法，是类的公共接口的一部分
+    func accelerate() {
+        speed += 10
+        print("加速中，当前速度：\(speed)")
+    }
+
+    // 另一个公共方法
+    func decelerate() {
+        speed -= 10
+        if speed < 0 {
+            speed = 0
+        }
+        print("减速中，当前速度：\(speed)")
+    }
+
+    // 公共方法提供对私有属性的受控访问
+    func getSpeed() -> Int {
+        return speed
+    }
+}
+let myCar = Car()
+myCar.accelerate()  // 加速中，当前速度：10
+myCar.decelerate()  // 减速中，当前速度：0
+// 外部代码不能直接访问 speed 属性，因为它是私有的
+// print(myCar.speed)  // 这会导致编译错误
+在这个例子中，Car 类有一个私有属性 speed 和三个公共方法：accelerate, decelerate, 和 getSpeed。这些公共方法构成了 Car 类的公共接口。
+它们允许外部代码以受控的方式与 Car 对象交互，比如加速或减速，同时不暴露内部的实现细节（如 speed 属性的直接访问和修改）
+通过这种方式，公共接口确保了对象内部状态的完整性和一致性，同时提供了足够的灵活性供外部代码使用
+
+3. 控制访问
+通过封装，可以精确控制对象的哪些部分对外界可见，哪些部分保持私有。这种控制有助于防止外部代码随意更改对象内部的状态，从而可能导致错
+误或不一致
+
+4. 减少代码重复
+封装有助于减少代码重复。通过在类内部封装共用的代码，可以避免在应用程序中多次编写相同的代码
+
+5. 易于维护和扩展
+封装的代码更易于维护和扩展。由于实现细节被隐藏，因此可以在不影响使用该类的代码的情况下更改内部实现。这意味着类可以随着时间的推移
+而进化，而不会破坏依赖于它的代码
+*/
+
+//子类可使用父类的所有内容
+class Teacher: Person{
+      var school: String
+
+      //重写并保留父类的方法
+      override init(){
+          school = "实验小学"
+          super.init() //通过super使用父类原有的init方法给年龄age初始化
+      }
+
+      //重写
+      override func play(){
+          print("我是子类的方法")
+          super.play()
+      }
+      func teach(){
+           print(name)
+      }
+}
+
+//age是一个私有属性，只能通过init，play方法来访问和修改。这保护了age的完整性，防止了未经授权的访问和修改
+var pc1 = Teacher()
+pc1.init(myAge: 66)
+pc1.play()
+
+//父类变量可以指向子类的对象
+var pc2: Person = pc1
+pc2.play()//使用子类的方法play()
+
+class Myobject{
+      func eat(){
+      }
+}
+
+class Dog: Myobject{
+      override func eat(){
+          print("我吃狗粮")
+      }
+}
+
+class Cat: Myobject{
+      override func eat(){
+          print("我吃猫粮")
+      }
+}
+
+var dog = Dog()
+var cat = Cat()
+
+//父类变量可以指向子类的对象 -> 多态: 同一个方法执行不同的命令
+var myobj: Myobject = dog()
+myobj.eat()
+myobj = cat
+myobj.eat()
+
+
+
+
+
+
