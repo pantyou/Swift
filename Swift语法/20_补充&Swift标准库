@@ -190,6 +190,25 @@ protocol FullyNamed {
 }
 定义了一个简单的协议
 
+/*
+Swift 中的协议定义中，get 关键字用于指定一个属性必须至少是可读的。当在协议中定义一个属性时，需要指定该属性是可读的（get），可写的（set），还是两者都是。
+这样做的目的是为了确保遵循该协议的类型提供了这个属性的最基本功能
+protocol FullyNamed {
+    var fullName: String { get set }
+}
+修改后的例子中，fullName 属性既可以被读取也可以被设置，这意味着遵循该协议的类型必须提供一个既可以获取也可以设置的 fullName 属性
+struct Person: FullyNamed {
+    var fullName: String
+}
+在这个例子中，Person 结构体遵循了 FullyNamed 协议，并提供了一个可读写的 fullName 字符串属性。由于 fullName 是可读写的，可以创
+建 Person 的实例并获取或设置其 fullName 属性：
+var person = Person(fullName: "John Doe")
+print(person.fullName)  // 输出 "John Doe"
+person.fullName = "Jane Doe"
+print(person.fullName)  // 输出 "Jane Doe"
+Person 结构体的实例 person 最初被赋予了全名John Doe。之后，可以更改这个属性的值为Jane Doe，这展示了fullName属性是可读写的
+*/
+
 //Protocol Conformance
 struct Person: FullyNamed {
     var fullName: String
@@ -197,10 +216,480 @@ struct Person: FullyNamed {
 let john = Person(fullName: "John Appleseed")
 定义了一个遵循 FullyNamed 协议的结构体
 
+7. 泛型
+//Generic Functions
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+定义了一个泛型函数，用于交换两个值
+
+/*
+<T> 表示这个函数是泛型的，其中 T 是一个占位符类型，代表可以传递给函数的任何类型
+inout 关键字表示这些参数是可变的，即函数内部对这些参数所做的修改会反映到函数外部
+由于 swapTwoValues 是一个泛型函数，它可以用于交换任何类型的两个值。例如：
+var myInt1 = 100
+var myInt2 = 200
+swapTwoValues(&myInt1, &myInt2)
+print("myInt1: \(myInt1), myInt2: \(myInt2)")  // 输出 "myInt1: 200, myInt2: 100"
+
+var myStr1 = "Hello"
+var myStr2 = "World"
+swapTwoValues(&myStr1, &myStr2)
+print("myStr1: \(myStr1), myStr2: \(myStr2)")  // 输出 "myStr1: World, myStr2: Hello"
+//在调用函数时，使用 & 符号来表示参数是 inout 参数，意味着它们是可变的引用
+
+如果不想在调用函数时使用参数标签，可以使用下划线 _ 来显式地省略它
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+    // 函数体
+}
+var someInt = 3
+var anotherInt = 107
+swapTwoValues(&someInt, &anotherInt)
+
+如果没有使用下划线，你需要在调用函数时包含参数标签，例如：
+func swapTwoValues<T>(a: inout T, b: inout T) {
+    // 函数体
+}
+swapTwoValues(a: &someInt, b: &anotherInt)
+*/
+
+//Generic Types
+struct Stack<Element> {
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+}
+定义了一个泛型栈结构
+
+8. 操作符和自定义操作符
+//Standard Operators
+let sum = 1 + 2
+使用了加法操作符
+
+//Operator Overloading
+extension Double {
+    static func +(left: Double, right: Double) -> Double {
+        return left + right
+    }
+}
+重载了 + 操作符以用于 Double 类型。
+
+9. 内存管理
+//Automatic Reference Counting (ARC)
+了解 ARC 如何自动管理内存
+
+//Strong, Weak, and Unowned References
+class Person {
+    let name: String
+    init(name: String) { self.name = name }
+    var apartment: Apartment?
+    deinit { print("\(name) is being deinitialized") }
+}
+
+class Apartment {
+    let unit: String
+    init(unit: String) { self.unit = unit }
+    weak var tenant: Person?
+    deinit { print("Apartment \(unit) is being deinitialized") }
+}
+使用弱引用来防止循环强引用
+
+10. 并发编程
+//Grand Central Dispatch (GCD)
+DispatchQueue.global(qos: .userInitiated).async {
+    // 在这里执行耗时的异步操作
+}
+使用 GCD 进行异步编程
+
+//Async/Await (Swift 5.5 and later)
+func fetchData() async -> Data {
+    // 异步获取数据
+}
+使用 Swift 5.5 引入的 async/await 模式
+
+11. 其他高级主题
+//Extensions
+extension Int {
+    func squared() -> Int {
+        return self * self
+    }
+}
+let number = 3
+let squaredNumber = number.squared()
+
+当然，我会针对每个主要知识点提供一个简单的例子和解释，以帮助你更好地理解 Swift 标准库的使用。
+
+1. 基本数据类型
+Integers
+
+swift
+Copy code
+let anInteger: Int = 100
+这里定义了一个 Int 类型的整数变量。
+
+Floating-Point Numbers
+
+swift
+Copy code
+let aDouble: Double = 3.14159
+这里定义了一个 Double 类型的浮点数变量。
+
+Boolean
+
+swift
+Copy code
+let isSwiftFun: Bool = true
+定义了一个布尔值，表示 Swift 是否有趣。
+
+Characters and Strings
+
+swift
+Copy code
+let aCharacter: Character = "A"
+let aString: String = "Hello, Swift!"
+分别定义了一个字符和一个字符串。
+
+Optional
+
+swift
+Copy code
+var maybeString: String? = nil
+maybeString = "Now I'm not nil"
+定义了一个可选字符串，最初为 nil，然后被赋予一个实际的字符串。
+
+2. 集合类型
+Arrays
+
+swift
+Copy code
+var someInts: [Int] = [10, 20, 30]
+定义了一个整数数组。
+
+Sets
+
+swift
+Copy code
+var someSet: Set<String> = Set(["apple", "banana", "kiwi"])
+定义了一个字符串集合。
+
+Dictionaries
+
+swift
+Copy code
+var nameAges: [String: Int] = ["Alice": 24, "Bob": 25]
+定义了一个字典，键是字符串，值是整数。
+
+3. 高级数据类型
+Tuples
+
+swift
+Copy code
+let http404Error = (404, "Not Found")
+定义了一个包含整数和字符串的元组。
+
+Enumerations
+
+swift
+Copy code
+enum CompassPoint {
+    case north, south, east, west
+}
+var direction = CompassPoint.west
+定义了一个枚举类型，并创建了一个该类型的变量。
+
+Structures
+
+swift
+Copy code
+struct Point {
+    var x: Int
+    var y: Int
+}
+let somePoint = Point(x: 10, y: 20)
+定义了一个结构体并创建了一个实例。
+
+Classes
+
+swift
+Copy code
+class Vehicle {
+    var numberOfWheels = 0
+    var description: String {
+        return "\(numberOfWheels) wheel(s)"
+    }
+}
+let bicycle = Vehicle()
+bicycle.numberOfWheels = 2
+定义了一个类并创建了一个实例。
+
+4. 函数式编程特性
+Closures
+
+swift
+Copy code
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+var reversedNames = names.sorted(by: { $0 > $1 })
+使用闭包对数组进行排序。
+
+Higher-Order Functions
+
+swift
+Copy code
+let numbers = [1, 2, 3, 4, 5]
+let squaredNumbers = numbers.map { $0 * $0 }
+使用 map 函数获取数组中每个数字的平方。
+
+5. 错误处理
+Error Protocol
+
+swift
+Copy code
+enum PrinterError: Error {
+    case outOfPaper
+    case noToner
+    case onFire
+}
+定义了一个遵循 Error 协议的枚举，表示打印机可能遇到的错误类型。
+
+Throwing, Catching, Propagating Errors
+
+swift
+Copy code
+func send(job: Int, toPrinter printerName: String) throws -> String {
+    if printerName == "Never Has Toner" {
+        throw PrinterError.noToner
+    }
+    return "Job sent"
+}
+定义了一个可以抛出错误的函数。
+
+6. 协议
+Protocol Syntax
+
+swift
+Copy code
+protocol FullyNamed {
+    var fullName: String { get }
+}
+定义了一个简单的协议。
+
+Protocol Conformance
+
+swift
+Copy code
+struct Person: FullyNamed {
+    var fullName: String
+}
+let john = Person(fullName: "John Appleseed")
+定义了一个遵循 FullyNamed 协议的结构体。
+
+7. 泛型
+Generic Functions
+
+swift
+Copy code
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+定义了一个泛型函数，用于交换两个值。
+
+Generic Types
+
+swift
+Copy code
+struct Stack<Element> {
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+}
+定义了一个泛型栈结构。
+
+8. 操作符和自定义操作符
+//Standard Operators
+let sum = 1 + 2
+使用了加法操作符。
+
+//Operator Overloading
+extension Double {
+    static func +(left: Double, right: Double) -> Double {
+        return left + right
+    }
+}
+重载了 + 操作符以用于 Double 类型。
+/*
+extension Double { ... }: 这表示对 Double 类型进行扩展。扩展可以为现有的类型添加新的方法、计算属性、下标、构造器以及操作符重载等
+static func +(left: Double, right: Double) -> Double { ... }: 这是一个静态函数，用于重载 Double 类型的加法操作符 +。
+static 表示这是一个静态方法，即它属于类型本身而不是类型的某个实例
+func + 表示这是一个函数，函数名是 +，用于重载加法操作符。
+(left: Double, right: Double) 是函数的参数列表，表示这个加法操作接受两个 Double 类型的参数，分别命名为 left 和 right。
+-> Double 表示这个函数返回一个 Double 类型的值。
+{ return left + right } 是函数的实现部分。这里简单地将 left 和 right 两个参数相加，并返回结果。
+重载的意义：
+在 Swift 中，Double 类型已经有一个内置的加法操作符 +。这个扩展实际上并没有改变原有操作符的行为。
+如果想改变加法操作的行为（例如，限制结果的范围或添加特殊的逻辑），可以在这个函数中实现。但通常不
+建议这样做，因为它会改变一个基本操作符的预期行为，可能导致代码难以理解和维护
+*/
+
+9. 内存管理
+//Automatic Reference Counting (ARC)
+Strong, Weak, and Unowned References
+class Person {
+    let name: String
+    init(name: String) { self.name = name }
+    var apartment: Apartment?
+    deinit { print("\(name) is being deinitialized") }
+}
+
+class Apartment {
+    let unit: String
+    init(unit: String) { self.unit = unit }
+    weak var tenant: Person?
+    deinit { print("Apartment \(unit) is being deinitialized") }
+}
+使用弱引用来防止循环强引用。
+/*
+Person类:
+Person 类有一个 name 属性，用于存储 Person 实例的名字
+init(name: String) 是一个构造器，用于创建 Person 实例并设置其 name 属性
+apartment 是一个可选的 Apartment 类型的属性（Apartment?），初始值为 nil。这表示一个 Person 实例可以有一个与之关联的 Apartment 实例
+deinit 是一个析构器，当 Person 实例被释放时调用。它打印一条消息，表明该 Person 实例正在被销毁
+Apartment类:
+Apartment 类有一个 unit 属性，用于存储公寓单元的标识
+init(unit: String) 是一个构造器，用于创建 Apartment 实例并设置其 unit 属性
+tenant 是一个可选的 Person 类型的属性（Person?），初始值为 nil。这表示一个 Apartment 实例可以有一个租客。重要的是，这里 tenant 被声明为 weak，这意味着它是一个弱引用
+deinit 是一个析构器，当 Apartment 实例被释放时调用。它打印一条消息，表明该 Apartment 实例正在被销毁
+弱引用和循环强引用的避免:
+在这个例子中，Apartment 类的 tenant 属性是一个弱引用（weak var tenant: Person?）。这是为了避免循环强引用的关键。如果 tenant 被声明为强引用（没有 weak 关键字），那么
+Person 和 Apartment 实例之间就会形成循环强引用。由于每个实例都持有对方的强引用，它们将永远不会被释放，导致内存泄漏
+通过将 tenant 声明为弱引用，当没有其他强引用指向 Person 实例时，它可以被自动释放，即使 Apartment 实例仍然存在。这样，当 Person 实例被释放时，Apartment 实例的 tenant
+属性会自动变为 nil，从而打破了循环引用
+*/
+**了解 ARC 如何自动管理内存**
+在 Swift 中，自动引用计数（ARC）是用来自动管理内存的机制。ARC 作用于引用类型（如类的实例），而不是值类型（如结构体和枚举），因为值类型在分配和销毁时遵循不同的规则。以下是 ARC 如何工作的基本原理：
+1. 引用计数
+每当你创建一个类的新实例时，ARC 会分配一块内存来存储该实例的信息。这块内存包括了实例的类型信息以及它的属性值
+当将这个实例赋给一个变量、常量或者将其作为参数传递时，ARC会跟踪这个实例的引用数量。每次这个实例被新的引用指向时，ARC会增加引用计数；当引用被销毁或者被赋予新的值时，引用计数会减少
+2. 内存释放
+当一个实例的引用计数降到 0 时，意味着没有任何变量、常量或者属性正在引用这个实例，ARC 会自动释放这个实例所占用的内存。这样做可以确保不会发生内存泄漏，即内存不再被需要但却没有被释放
+3. 强引用、弱引用和无主引用
+强引用：这是默认的引用类型。强引用会增加实例的引用计数，并且不允许被引用的实例被销毁，直到所有的强引用都被销毁
+弱引用：通过 weak 关键字声明。弱引用不会增加实例的引用计数。当实例被销毁时，弱引用会自动变为 nil。这对于解决循环强引用问题很有帮助
+无主引用：通过 unowned 关键字声明。无主引用和弱引用类似，但是当引用的实例被销毁时，无主引用不会自动变为 nil。使用无主引用时，你需要确保引用始终指向一个未被销毁的实例
+4. 循环强引用和其解决方法
+某些情况下，两个或多个类实例之间可能会通过相互的强引用形成一个循环，导致它们都无法被释放。这种情况被称为循环强引用
+为了解决循环强引用的问题，Swift 提供了弱引用和无主引用。通过将其中一个或多个引用定义为弱引用或无主引用，可以打破循环，允许 ARC 正常地释放实例
+总结
+ARC 在 Swift 中自动管理内存，使得开发者不需要手动释放内存，从而减少了内存泄漏的风险。理解 ARC 的工作原理对于编写高效、无内存泄漏的 Swift 代码至关重要
+**了解 ARC 如何自动管理内存**
 
 
+10. 并发编程
+//Grand Central Dispatch (GCD)
+DispatchQueue.global(qos: .userInitiated).async {
+    // 在这里执行耗时的异步操作
+}
+使用 GCD 进行异步编程
+/*
+Grand Central Dispatch (GCD): GCD 是一个低级别的 API，用于优化应用程序以利用多核处理器以及管理多线程。GCD 提供了任务提交到队列的机制，然后由系统来管理这些任务的执行
+DispatchQueue: 这是 GCD 中的一个核心概念，代表了任务执行的队列。任务可以同步（synchronously）或异步（asynchronously）提交到这些队列中
+代码解析:
+DispatchQueue.global(qos: .userInitiated): 这部分代码获取一个全局的并发队列。qos 参数代表“服务质量”，在这里是 .userInitiated，意味着这个任务是由用户发起的，相对重要，
+需要相对较快的开始执行，但不是紧急任务（紧急任务使用 .userInteractive）
+.async { ... }: 这是一个异步执行的闭包。async 表示任务将在后台并发地执行，不会阻塞当前线程。这对于不会立即需要结果的耗时任务非常有用，比如网络请求、大量数据处理等
+使用场景:
+在实际应用中，可能会将耗时的操作放在这个闭包中，以避免阻塞主线程。阻塞主线程会导致用户界面冻结，影响用户体验。例如，可能会在这个闭包中执行网络请求或者大量数据的计算。完成后，
+如果需要更新 UI，应该将这部分代码切换回主线程：
+DispatchQueue.global(qos: .userInitiated).async {
+    // 执行耗时的操作
+    DispatchQueue.main.async {
+        // 在这里更新 UI
+    }
+}
+这样做确保了耗时操作不会阻塞主线程，同时 UI 的更新仍然在主线程上执行，符合 iOS 和 macOS 应用的线程安全要求
+//在 iOS 和 macOS 应用中，UI 的更新必须在主线程上执行的原因主要是出于线程安全的考虑。这是由 Apple 的 UI 框架（如 UIKit 在 iOS 和 AppKit 在 macOS）的设计决定的
+*/
 
 
+//Async/Await (Swift 5.5 and later)
+func fetchData() async -> Data {
+    // 异步获取数据
+}
+使用 Swift 5.5 引入的 async/await 模式
+/*
+这段 Swift 代码定义了一个名为 fetchData 的异步函数，使用了 Swift 5.5 引入的异步/等待（async/await）模式。这个函数在被调用时将异步地执行操作，并最终返回一个 Data 类型的结果
+异步函数:
+func fetchData() async -> Data { ... } 是函数的声明
+func 表示这是一个函数
+fetchData 是函数的名称
+async 关键字表明这个函数是异步的。在 Swift 中，async 表示这个函数可以在执行长时间运行的操作时暂停（挂起）其执行，而不会阻塞当前线程。这使得其他任务有机会在同一个线程上运行
+-> Data 表示这个函数返回 Data 类型的数据。Data 是 Swift 标准库中用于处理二进制数据的类型。
+函数体:
+{ ... } 中的代码是函数的实现部分。在这个示例中，函数体被省略了，在实际使用中，会在这里编写获取数据的异步代码。包括网络请求、读取文件、执行数据库查询等操作
+使用异步函数:
+要调用这个异步函数，需要在另一个支持异步操作的上下文中使用 await 关键字。例如：
+func someFunction() async {
+    let data = await fetchData()
+    // 使用获取到的数据
+}
+在这个例子中，someFunction 也是一个异步函数。在其内部，使用 await 关键字来等待 fetchData 的结果。await 关键字会暂停 someFunction 的执行，直到 fetchData 完成并返回数据。这种方式使得代码能够以
+近似同步的方式编写，同时保持了异步操作的所有优势，如不阻塞当前线程
+总结:
+fetchData 函数是 Swift 中异步编程的一个例子，展示了如何定义和使用异步函数来执行耗时操作，同时保持代码的可读性和维护性。通过使用 async 和 await，Swift 允许开发者以清晰和直观的方式处理异步操作
+*/
+
+11. 其他高级主题
+//Extensions
+extension Int {
+    func squared() -> Int {
+        return self * self
+    }
+}
+let number = 3
+let squaredNumber = number.squared()
+为 Int 类型添加了一个扩展
+
+//Property Wrappers
+@propertyWrapper
+struct TwelveOrLess {
+    private var number: Int
+    var wrappedValue: Int {
+        get { return number }
+        set { number = min(newValue, 12) }
+    }
+}
+定义了一个属性包装器，确保数字不超过 12
+/*
+@propertyWrapper 告诉 Swift 这个结构体是一个属性包装器。属性包装器可以封装对属性的访问，提供额外的逻辑，比如验证、存储或者线程安全等
+var wrappedValue: Int { ... } 定义了一个名为 wrappedValue 的计算属性。在属性包装器中，wrappedValue 是一个特殊的属性，它代表被包装器包装的属性的值
+get { return number } 是 wrappedValue 的 getter 方法，当读取 wrappedValue 时，它返回 number 的值
+set { number = min(newValue, 12) } 是 wrappedValue 的 setter 方法，当尝试设置 wrappedValue 的值时，它将 number 设置为 newValue 和 12 中的较小者。这确保了 number 的值永远不会超过 12
+使用 TwelveOrLess:
+可以使用 TwelveOrLess 来确保某个属性的值不超过 12。例如：
+struct SomeStruct {
+    @TwelveOrLess var someNumber: Int
+}
+var example = SomeStruct()
+example.someNumber = 10
+print(example.someNumber)  // 输出 10
+example.someNumber = 24
+print(example.someNumber)  // 输出 12，因为 24 被限制在了 12
+在这个例子中，SomeStruct 有一个使用 @TwelveOrLess 包装器的 someNumber 属性。尽管尝试将 someNumber 设置为 24，但由于 TwelveOrLess 的限制，它的值被限制在了 12
+*/
+
+12. Swift 标准库源码
+//Exploring the source code of the Swift Standard Library
 
 
 
