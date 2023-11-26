@@ -1,0 +1,207 @@
+Swift 标准库提供了一系列基本数据类型、集合以及其他用于日常编程的工具：
+
+1. 基本数据类型
+Integers: Int, UInt, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64
+Floating-Point Numbers: Float, Double
+Boolean: Bool
+Characters and Strings: Character, String
+Optional: Optional, Optional Chaining, Nil Coalescing Operator
+2. 集合类型
+Arrays: Array, ArraySlice
+Sets: Set
+Dictionaries: Dictionary, DictionaryLiteral
+3. 高级数据类型
+Tuples
+Enumerations
+Structures
+Classes
+4. 函数式编程特性
+Closures
+Higher-Order Functions: map, filter, reduce, flatMap, compactMap
+5. 错误处理
+Error Protocol
+Throwing, Catching, Propagating Errors
+6. 协议
+Protocol Syntax
+Protocol Conformance
+Protocol Extensions
+Standard Protocols: Equatable, Comparable, Hashable, Codable
+7. 泛型
+Generic Functions
+Generic Types
+Type Constraints
+Associated Types
+Generic Protocols
+8. 操作符和自定义操作符
+Standard Operators
+Operator Overloading
+Custom Operators
+9. 内存管理
+Automatic Reference Counting (ARC)
+Strong, Weak, and Unowned References
+Memory Safety
+10. 并发编程
+Grand Central Dispatch (GCD)
+Operation Queues
+Async/Await (Swift 5.5 and later)
+Actors (Swift 5.5 and later)
+11. 其他高级主题
+Extensions
+Property Wrappers
+Dynamic Member Lookup
+Pattern Matching
+SwiftUI (if interested in UI development)
+12. Swift 标准库源码
+Exploring the source code of the Swift Standard Library
+
+学习资源
+官方 Swift 文档
+Swift 源代码
+在线教程和课程
+Swift 社区和论坛
+
+&&实例：
+1. 基本数据类型
+//Integers
+let anInteger: Int = 100
+这里定义了一个 Int 类型的整数变量
+
+//Floating-Point Numbers
+let aDouble: Double = 3.14159
+这里定义了一个 Double 类型的浮点数变量
+
+//Boolean
+let isSwiftFun: Bool = true
+定义了一个布尔值，表示 Swift 是否有趣
+
+//Characters and Strings
+let aCharacter: Character = "A"
+let aString: String = "Hello, Swift!"
+分别定义了一个字符和一个字符串
+
+//Optional
+var maybeString: String? = nil
+maybeString = "Now I'm not nil"
+定义了一个可选字符串，最初为 nil，然后被赋予一个实际的字符串
+
+2. 集合类型
+//Arrays
+var someInts: [Int] = [10, 20, 30]
+定义了一个整数数组
+
+//Sets
+var someSet: Set<String> = Set(["apple", "banana", "kiwi"])
+定义了一个字符串集合
+
+//Dictionaries
+var nameAges: [String: Int] = ["Alice": 24, "Bob": 25]
+定义了一个字典，键是字符串，值是整数
+
+3. 高级数据类型
+//Tuples
+let http404Error = (404, "Not Found")
+定义了一个包含整数和字符串的元组
+
+//Enumerations
+enum CompassPoint {
+    case north, south, east, west
+}
+var direction = CompassPoint.west
+定义了一个枚举类型，并创建了一个该类型的变量
+//Structures
+struct Point {
+    var x: Int
+    var y: Int
+}
+let somePoint = Point(x: 10, y: 20)
+定义了一个结构体并创建了一个实例
+
+//Classes
+class Vehicle {
+    var numberOfWheels = 0
+    var description: String {
+        return "\(numberOfWheels) wheel(s)"
+    }
+}
+let bicycle = Vehicle()
+bicycle.numberOfWheels = 2
+定义了一个类并创建了一个实例
+
+4. 函数式编程特性
+//Closures
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+var reversedNames = names.sorted(by: { $0 > $1 })// 闭包 { $0 > $1 } 意味着如果第一个元素（$0）大于第二个元素（$1），则返回 true，从而将较大的元素排在前面
+使用闭包对数组进行排序
+
+//Higher-Order Functions
+let numbers = [1, 2, 3, 4, 5]
+let squaredNumbers = numbers.map { $0 * $0 }
+/*$0 是闭包的参数的简写形式，代表数组中的当前元素。闭包的内容是将当前元素乘以它自己，即计算它的平方*/
+print(squaredNumbers)  // 输出: [1, 4, 9, 16, 25]
+使用 map 函数获取数组中每个数字的平方
+
+5. 错误处理
+//Error Protocol
+enum PrinterError: Error {
+    case outOfPaper
+    case noToner
+    case onFire
+}
+定义了一个遵循 Error 协议的枚举，表示打印机可能遇到的错误类型
+
+//Throwing, Catching, Propagating Errors
+func send(job: Int, toPrinter printerName: String) throws -> String {
+    if printerName == "Never Has Toner" {
+        throw PrinterError.noToner
+    }
+    return "Job sent"
+}
+定义了一个可以抛出错误的函数
+/*
+func 表示这是一个函数
+send 是函数的名称
+job: Int 是第一个参数，表示要发送的打印任务，其类型为 Int
+toPrinter printerName: String 是第二个参数，表示打印机的名称，其类型为 String
+throws 关键字表示这个函数可以抛出错误。这意味着在调用这个函数时，你需要处理可能发生的错误
+-> String 表示这个函数返回一个 String 类型的值
+
+if printerName == "Never Has Toner" { throw PrinterError.noToner }: 这是一个条件语句，检查打印机名称是否为 "Never Has Toner"。
+如果是，函数将抛出一个 PrinterError.noToner 错误。这里 PrinterError.noToner 是一个在某处定义的错误类型，是一个遵循 Error 协议的枚举
+throw 关键字用于抛出错误。return "Job sent": 如果打印机名称不是 "Never Has Toner"，函数将正常执行并返回字符串 "Job sent"，表示打印任务已经发送
+
+由于这个函数可以抛出错误，所以在调用它时，需要使用 do-catch 语句来处理可能发生的错误，或者让错误传播到调用这个函数的上下文中。例如：
+do {
+    let response = try send(job: 1040, toPrinter: "Office Printer")
+    print(response) //这行代码只有在没有错误发生时才会执行
+} catch PrinterError.noToner {
+    print("Printer has no toner.")
+} catch {
+    print("An unexpected error occurred: \(error).")
+}
+如果 send 函数抛出 PrinterError.noToner 错误，它会被 catch 语句捕获，并打印出相应的错误信息。如果发生了其他类型的错误，它们会被第二个 catch 语句捕获
+*/
+
+6. 协议
+//Protocol Syntax
+protocol FullyNamed {
+    var fullName: String { get }
+    //定义了一个名为 FullyNamed 的协议，其中包含一个名为 fullName 的属性。{ get } 表示任何遵循 FullyNamed 协议的类型都必须至少提供一个名为 fullName 
+    //的可读属性。这意味着其他代码可以获取（读取）这个属性的值
+}
+定义了一个简单的协议
+
+//Protocol Conformance
+struct Person: FullyNamed {
+    var fullName: String
+}
+let john = Person(fullName: "John Appleseed")
+定义了一个遵循 FullyNamed 协议的结构体
+
+
+
+
+
+
+
+
+
