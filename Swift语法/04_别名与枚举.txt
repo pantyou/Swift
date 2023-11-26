@@ -48,6 +48,78 @@ var mon3: Month2.February("a", "b")
 print(mon2)
 print(mon3)
 
+**补充**--------------------------------------------------------------------------------------------------
+
+Swift 中的枚举（Enumerations）是一种构造，它允许定义一个通用类型的一组相关值，并以类型安全的方式在代码中使用这些值
+Swift 的枚举是一种非常强大的特性，与 C 和 Objective-C 中的枚举相比，提供了许多先进的特性
+
+基本枚举
+在 Swift 中，枚举的定义使用 enum 关键字。例如：
+enum CompassPoint {
+    case north
+    case south
+    case east
+    case west
+}
+var direction = CompassPoint.west
+direction = .north // 当类型已知时，可以使用更简短的形式
+
+关联值
+Swift 枚举可以存储与枚举成员值相关联的值，这些值可以是不同类型的
+enum Barcode {
+    case upc(Int, Int, Int, Int)
+    case qrCode(String)
+}
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+productBarcode = .qrCode("ABCDEFGHIJKLMNOP")
+
+原始值
+Swift 的枚举还可以有原始值，这些原始值是相同类型的
+enum ASCIIControlCharacter: Character {
+    case tab = "\t"
+    case lineFeed = "\n"
+    case carriageReturn = "\r"
+}
+let rawValue = ASCIIControlCharacter.tab.rawValue // 原始值 "\t"
+//Swift 中，当你为枚举定义原始值时，每个枚举成员都会自动获得一个 rawValue 属性，
+//这个属性对应于为枚举成员指定的原始值。ASCIIControlCharacter 枚举定义了字符类型（Character）的原始值
+
+递归枚举
+递归枚举是一种枚举类型，它的一个或多个枚举成员有该枚举类型的关联值。使用 indirect 关键字来表示枚举成员可以递归
+enum ArithmeticExpression {
+    case number(Int)
+    indirect case addition(ArithmeticExpression, ArithmeticExpression)
+    indirect case multiplication(ArithmeticExpression, ArithmeticExpression)
+}
+let five = ArithmeticExpression.number(5)
+let four = ArithmeticExpression.number(4)
+let sum = ArithmeticExpression.addition(five, four)
+let product = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))
+
+使用枚举
+枚举在 Swift 中非常有用，提供类型安全的方式来处理一组相关的值，不用担心意外使用无效或不相关的值
+switch direction {
+case .north:
+    print("Heading North")
+case .south:
+    print("Heading South")
+case .east:
+    print("Heading East")
+case .west:
+    print("Heading West")
+}
+
+Swift 的枚举不仅可以表示一组相关的值还可以携带
+不同类型的关联值，支持原始值，甚至可以是递归的
+
+**补充**--------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
