@@ -32,3 +32,6 @@ print(test6)
 区间运算符 ...  ..<
 var area1 = 1...4 //1,2,3,4
 var area2 = 1..<4 //1,2,3
+
+print(Int.random(in: 1...100))
+print(Int.random(in: 100..<120))
