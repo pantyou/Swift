@@ -15,4 +15,7 @@ print(name.count)
 print(name.description)
 print(name.hashValue)
 
+print(str.uppercased()) //大写
+print(str.lowercased()) //小写
+print()
 
