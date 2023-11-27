@@ -10,3 +10,9 @@ print(b)
 
 print(a, b, true, 5, separator: "-")//设置特定分隔符为"-"
 
+print(name.isEmpty)
+print(name.count)
+print(name.description)
+print(name.hashValue)
+
+
