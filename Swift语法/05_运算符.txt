@@ -35,3 +35,7 @@ var area2 = 1..<4 //1,2,3
 
 print(Int.random(in: 1...100))
 print(Int.random(in: 100..<120))
+
+//空合运算符
+var h:String?
+print(h ?? "") //如果h为nil,则输出""
