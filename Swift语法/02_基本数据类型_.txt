@@ -31,3 +31,8 @@ num8 = false
 var num9 = true
 print(num8)
 print(num9)
+
+var x = ture
+x.toggle() //false 取反
+print(x)
+print(Bool.random())
