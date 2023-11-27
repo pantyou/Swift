@@ -8,4 +8,5 @@ var b = 10
 print(a)
 print(b)
 
+print(a, b, true, 5, separator: "-")//设置特定分隔符为"-"
 
