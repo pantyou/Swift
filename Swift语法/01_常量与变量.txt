@@ -10,12 +10,24 @@ print(b)
 
 print(a, b, true, 5, separator: "-")//设置特定分隔符为"-"
 
+var name = "李一尘" 
 print(name.isEmpty)
 print(name.count)
 print(name.description)
 print(name.hashValue)
 
+var str = "abc"
 print(str.uppercased()) //大写
 print(str.lowercased()) //小写
-print()
 
+print("productNum".hasPrefix("product"))  //true 是否有这个前缀
+print("productNum".hasSuffix("Num")) //true 是否有这个后缀
+
+var test = "abcde"
+
+for index in test.indices{
+    print(text[index], index)
+}
+
+print(test[test.startIndex])
+print(test[test.index(before: test.endIndex)])
